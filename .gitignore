@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Raw or derived data
+data/*
+!data/README.md
+*.sav
+*.zsav
+
+# Generated figures and tables
+outputs/*
+!outputs/.gitkeep
+*.csv
+*.png
+*.pdf
+
+# Local notebook variants
+*_executed.ipynb
+*_results.ipynb

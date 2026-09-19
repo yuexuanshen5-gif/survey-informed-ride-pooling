@@ -128,7 +128,8 @@ before deciding whether to publish it.
 ## Reproducibility notes
 
 - Random-number generators use explicit seeds in the operational notebook.
-- The clean public notebooks contain no execution output or embedded raw data.
+- The clean public notebooks contain no execution output, embedded raw data, or
+  bundled empirical results from the private survey.
 - `scripts/validate_notebooks.py` checks notebook structure, Python syntax, and
   confirms that public notebooks have no stored outputs.
 - `rho`, `delta_i`, `omega_i`, `WTP_i^{trip}`, `P_i^{solo}`,
