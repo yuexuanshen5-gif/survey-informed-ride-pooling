@@ -61,23 +61,23 @@ The paper compares three synthetic scales (50/15, 100/30, and 200/60 requests/ve
 
 Reported outcomes include realised service rate, route-infeasible versus passenger-unacceptable rejections, vehicle kilometres travelled (VKT), distance-weighted occupancy, and revenue. Discount and WTP sensitivity experiments use separate experimental draws.
 
-## Important: paper versus notebook scenario labels
+## Scenario definitions (aligned with the ICTTE manuscript)
 
-The operational notebook has **three configurations**, but the ICTTE manuscript reports **two**. The letter labels do **not** correspond directly:
+**The scenario letters used in this repository now match the manuscript exactly for A and B.** Scenario C is an additional auxiliary benchmark, not part of the paper's two-scenario comparison.
 
-| ICTTE manuscript | Operational notebook | Meaning |
+| Scenario | Definition | Role |
 | --- | --- | --- |
-| **Scenario A** | **Scenario B** | Homogeneous: fixed discount and WTP thresholds (reported benchmark: `delta_bar = 0.35`, `omega_bar = 0.25`) |
-| **Scenario B** | **Scenario C** | Survey-informed: respondent-specific minimum discounts and WTP limits, assigned as complete profiles |
-| *Not included in the paper comparison* | **Scenario A** | Auxiliary universal-acceptance baseline |
+| **A — Homogeneous behaviour** | Fixed minimum discount and WTP threshold (reported paper benchmark: `delta_bar = 0.35`, `omega_bar = 0.25`) | **Paper Scenario A** |
+| **B — Survey-informed heterogeneous behaviour** | Complete sampled respondent profiles, including individual minimum-discount and WTP constraints | **Paper Scenario B** |
+| **C — Universal acceptance** | All route-feasible offers are accepted irrespective of passenger price preferences | **Auxiliary baseline only** |
 
-For the notebook's general notation:
+Using the model's existing notation:
 
-- **Notebook Scenario A:** `\delta_i=0` and `WTP_i^{trip}=+\infty`.
-- **Notebook Scenario B:** `\delta_i=\bar{\delta}` and `WTP_i^{trip}=\bar{\omega}P_i^{solo}`.
-- **Notebook Scenario C:** `\delta_i=\delta_i^{survey}` and `WTP_i^{trip}=\omega_i^{survey}P_i^{solo}`.
+- **Scenario A:** `\delta_i=\bar{\delta}` and `WTP_i^{trip}=\bar{\omega}P_i^{solo}`.
+- **Scenario B:** `\delta_i=\delta_i^{survey}` and `WTP_i^{trip}=\omega_i^{survey}P_i^{solo}`.
+- **Scenario C:** `\delta_i=0` and `WTP_i^{trip}=+\infty`.
 
-When comparing results with the manuscript, use the **paper-to-notebook mapping above** rather than matching scenario letters directly.
+The operational notebook, its functions, exported scenario labels, and figure legends use this mapping. **Do not include Scenario C in a two-scenario reproduction of the manuscript's A/B figures.**
 
 ## Repository contents
 
@@ -99,7 +99,7 @@ survey-informed-ride-pooling/
 ```
 
 - [`01_survey_regression.ipynb`](notebooks/01_survey_regression.ipynb): survey coding, ordinal logistic models, model comparisons, odds ratios, and a forest plot.
-- [`02_operational_model.ipynb`](notebooks/02_operational_model.ipynb): insertion and route-feasibility logic, upfront acceptance, ex-post pricing, Scenarios A/B/C, Monte Carlo runs, and synthetic scaling and sensitivity experiments.
+- [`02_operational_model.ipynb`](notebooks/02_operational_model.ipynb): insertion and route-feasibility logic, upfront acceptance, ex-post pricing, Scenarios A/B/C (paper-aligned A/B; auxiliary C), Monte Carlo runs, and synthetic scaling and sensitivity experiments.
 - [`data/README.md`](data/README.md): required SPSS survey variables and coding rules.
 - [`scripts/validate_notebooks.py`](scripts/validate_notebooks.py): structural/syntax and stored-output checks for the public notebooks.
 
