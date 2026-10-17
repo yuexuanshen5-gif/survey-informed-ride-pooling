@@ -26,6 +26,53 @@ three scenarios. Only the passenger behavioural parameterisation changes:
   $\delta_i=\delta_i^{survey}$ and
   $WTP_i^{trip}=\omega_i^{survey}P_i^{solo}$.
 
+## ICTTE 2026 conference-paper scenario correspondence
+
+The ICTTE conference paper reports a **two-scenario comparison** selected from the
+three configurations available in the operational notebook. The labels are
+**not identical** between the paper and the notebook:
+
+| ICTTE paper label | Notebook label | Acceptance specification |
+| --- | --- | --- |
+| **Scenario A — Fixed-threshold homogeneous** | **Scenario B — Homogeneous behaviour** | `delta_bar = 0.35`, `omega_bar = 0.25` in the reported benchmark |
+| **Scenario B — Survey-informed heterogeneous** | **Scenario C — Survey-informed heterogeneous behaviour** | Complete respondent profiles, including minimum-discount and WTP thresholds |
+
+**Notebook Scenario A — Universal acceptance** is an auxiliary baseline and
+is **not** one of the paper's two reported scenarios. The notebook uses a
+three-scenario naming scheme for broader exploratory analysis; do not read the
+paper's Scenario A as notebook Scenario A.
+
+In the conference-paper comparison, the 75% upfront discount is an illustrative
+experimental benchmark, not a market-estimated discount. The service-rate
+difference between the fixed-threshold and survey-informed cases reflects
+**both aggregate acceptance differences and individual threshold dispersion**;
+it should not be interpreted as the isolated causal effect of heterogeneity.
+
+The main scale comparison and the discount/WTP sensitivity experiments use
+separate profile draws/seeds, so their nominally identical 75% settings can
+have different Monte Carlo estimates. The paper must identify each result by
+its experiment rather than silently treating those values as identical.
+
+## Implementation details relevant to the paper
+
+- WTP is elicited for a 10 km trip with a RMB 30 solo fare, and transferred
+  using the reported WTP-to-RMB-30 ratio.
+- The open-ended Q34 category above RMB 20 has **an assumed RMB 30 upper
+  bound** in the code (`Q34_OPEN_UPPER_CAP_RMB = 30.0`). This is a modelling
+  assumption, not a survey-measured upper limit; WTP sensitivity should be
+  interpreted accordingly.
+- In `gamma_settlement`, conditions are evaluated sequentially: first
+  `total_distance <= BASE_DISTANCE_KM`; otherwise
+  `shared_distance <= BASE_DISTANCE_KM`; otherwise the final branch.
+  Hence the paper's piecewise conditions must be non-overlapping and match
+  that `if/elif/else` precedence.
+- Equation (7) in the paper describes the distance–service formulation; the
+  implementation uses an online greedy minimum-incremental-distance insertion
+  heuristic and **does not** solve a full-horizon MIP.
+- The respondent-level survey file is not public. Consequently, this
+  repository documents the implementation but does **not** provide independent
+  full reproduction of the reported empirical numerical results.
+
 The upfront pooled-service offer is
 
 $$
